@@ -24,4 +24,4 @@ RUN mkdir -p /data
 ENV SVCDESK_DB=/data/svcdesk.db
 
 EXPOSE 8080
-CMD ["uvicorn", "svcdesk.main:app", "--app-dir", "/app/src", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--app-dir", "/app/src", "--host", "0.0.0.0", "--port", "8080"]
