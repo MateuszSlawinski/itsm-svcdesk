@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from dora_metrics import MetricInputError, compute_metrics
 
 app = FastAPI()
 DB = os.environ.get("SVCDESK_DB", "/data/svcdesk.db")
@@ -131,6 +132,45 @@ async def unexpected(request, exc):
 @app.get("/health")
 def health():
     return {"status": "ok", "service": "svcdesk"}
+
+
+@app.post("/dora/metrics")
+async def dora_metrics(request: Request):
+    try:
+        body = await request.json()
+    except ValueError:
+        return error(400, "validation", "request body must contain valid JSON")
+    try:
+        return compute_metrics(body)
+    except MetricInputError as exc:
+        return error(422, "validation", str(exc))
+
+
+@app.get("/dora/ticket-events")
+def ticket_events():
+    c = conn()
+    rows = c.execute("SELECT * FROM tickets").fetchall()
+    c.close()
+    events = []
+    for row in rows:
+        phases = (
+            ("created_at", "created", "new"),
+            ("acknowledged_at", "acknowledged", "acknowledged"),
+            ("resolved_at", "resolved", "resolved"),
+            ("closed_at", "closed", "closed"),
+        )
+        for timestamp_field, phase, state in phases:
+            timestamp = row[timestamp_field]
+            if timestamp is not None:
+                events.append({
+                    "ticket_id": row["id"],
+                    "at": timestamp,
+                    "phase": phase,
+                    "priority": row["priority"],
+                    "state": state,
+                })
+    events.sort(key=lambda event: (instant(event["at"]), event["ticket_id"]))
+    return events
 
 
 @app.post("/tickets")

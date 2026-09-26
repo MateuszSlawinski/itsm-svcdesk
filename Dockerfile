@@ -18,6 +18,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Your code lives under src/ (see src/README.md). Adjust the module path in CMD to your layout.
 COPY src/ /app/src/
+COPY fixtures/ /app/fixtures/
 
 # The SQLite file goes to /data (a named volume in docker-compose.yml), so tickets survive a restart.
 RUN mkdir -p /data

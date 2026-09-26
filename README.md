@@ -20,7 +20,7 @@ write your own), and read the course package (`README.md`, `PREWORK.md`, `lab1/`
 
 | path | what it is |
 |---|---|
-| `docker-compose.yml` | the compose contract: service `svcdesk` on 8080, `SVCDESK_TEST_CLOCK`, a named volume; `tests` profile commented out |
+| `docker-compose.yml` | service `svcdesk` on 8080, `SVCDESK_TEST_CLOCK`, named volume, and `tests` profile |
 | `Dockerfile.example` | a Python 3.13 image skeleton; copy to `Dockerfile` or replace for your language |
 | `DECISIONS.md` | your reasoning artifact: front matter with the three decisions, three sections, five labels each |
 | `itsmlab.yaml` | lab number, baselines, your repository, the submissions repository, the checker image |
@@ -36,3 +36,10 @@ write your own), and read the course package (`README.md`, `PREWORK.md`, `lab1/`
 The workflow `tier-a` runs on every push and on demand (Actions tab, "Run workflow"). It needs no secrets. The
 job is red when a Core spec fails; the step summary shows which checks, and `report.json` is attached as an
 artifact.
+
+## Lab 2
+
+Lab 2 adds stateless DORA metric calculation at `POST /dora/metrics` and a ticket lifecycle export at
+`GET /dora/ticket-events`. The published practice event log is in `fixtures/`; compare `metrics.json` and
+`EDGE-CASES.md` with the service's output. Run the Lab 2 checks with
+`.\itsmlab.ps1 verify 2` on Windows or `./itsmlab.sh verify 2` on Linux/macOS.

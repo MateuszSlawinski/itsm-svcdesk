@@ -1,0 +1,11 @@
+{
+  "source": "gh api 'repos/swasik/itsm-2026-submissions/issues?state=all&per_page=100' --paginate --jq '.[] | {number, title, labels}'",
+  "captured_at": "2026-09-26T13:50:44Z",
+  "capture_path": "evidence/rework-class-issues.jsonl",
+  "sha256": "ec2373c0555756c05bed25d480deb38e3055e9862ff868e93f752f4af7ae5911",
+  "deployments": 55,
+  "rework_deployments": 13,
+  "deployment_rework_rate": 0.236364,
+  "method": "Each receipted class submission is one delivery observation; a corrected tag version v2 or later is counted as rework. Receipt issues without a parseable labN/vN tag remain in the denominator but cannot be identified as rework.",
+  "limitation": "The shared receipt history does not expose the R-15 unplanned and caused_by fields, so corrected submissions are an explicit proxy for deployment rework."
+}
