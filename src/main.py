@@ -8,7 +8,11 @@ from zoneinfo import ZoneInfo
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from dora_metrics import MetricInputError, compute_metrics
+
+try:
+    from dora_metrics import MetricInputError, compute_metrics
+except ModuleNotFoundError:  # pragma: no cover - local repo execution
+    from src.dora_metrics import MetricInputError, compute_metrics
 
 app = FastAPI()
 DB = os.environ.get("SVCDESK_DB", "/data/svcdesk.db")
