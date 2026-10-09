@@ -1,0 +1,47 @@
+# ai-generated: 35% - written with GitHub Copilot and aligned to MONITORING-SPEC.md M-16 to M-21
+# Availability burn alerts use long and short windows; comparisons keep thresholds explicit for mutation tests.
+groups:
+  - name: svcdesk-slo
+    interval: 15s
+    rules:
+      - alert: KbSearchErrorsBurnFast
+        expr: |
+          (
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search", http_response_status_code=~"5.."}[1h]))
+            /
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search"}[1h]))
+          ) > 14.4 * (1 - 0.99)
+          and
+          (
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search", http_response_status_code=~"5.."}[5m]))
+            /
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search"}[5m]))
+          ) > 14.4 * (1 - 0.99)
+        for: 1m
+        labels:
+          service: svcdesk
+          slo: availability
+          severity: P1
+        annotations:
+          summary: "Page: /kb/search is burning its availability budget rapidly"
+
+      - alert: KbSearchErrorsBurnSlow
+        expr: |
+          (
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search", http_response_status_code=~"5.."}[1h]))
+            /
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search"}[1h]))
+          ) > 6 * (1 - 0.99)
+          and
+          (
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search", http_response_status_code=~"5.."}[5m]))
+            /
+            sum(rate(http_server_request_duration_seconds_count{job="svcdesk", http_route="/kb/search"}[5m]))
+          ) > 6 * (1 - 0.99)
+        for: 2m
+        labels:
+          service: svcdesk
+          slo: availability
+          severity: P2
+        annotations:
+          summary: "Chat: /kb/search is steadily burning its availability budget"

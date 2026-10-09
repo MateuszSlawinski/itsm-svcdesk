@@ -1,0 +1,13 @@
+# ai-generated: 20% - created with GitHub Copilot from the Lab 3 monitoring specification
+# Prometheus configuration for the local observability profile.
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+
+rule_files:
+  - alerts.yml
+
+scrape_configs:
+  - job_name: svcdesk
+    static_configs:
+      - targets: ["svcdesk:8080"]

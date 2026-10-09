@@ -1,0 +1,49 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "panels": [
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "id": 1,
+      "targets": [{"expr": "histogram_quantile(0.99, sum by (le) (rate(http_server_request_duration_seconds_bucket{http_route=\"/kb/search\"}[5m])))", "legendFormat": "p99", "refId": "A"}],
+      "title": "Knowledge search p99 latency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "id": 2,
+      "targets": [{"expr": "sum by (http_response_status_code) (rate(http_server_request_duration_seconds_count{http_route=\"/kb/search\"}[5m]))", "legendFormat": "{{http_response_status_code}}", "refId": "A"}],
+      "title": "Search request rate by status",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "percentunit", "min": 0, "max": 1}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "id": 3,
+      "targets": [{"expr": "1 - (sum(rate(http_server_request_duration_seconds_count{http_route=\"/kb/search\", http_response_status_code=~\"5..\"}[5m])) / sum(rate(http_server_request_duration_seconds_count{http_route=\"/kb/search\"}[5m])))", "legendFormat": "availability", "refId": "A"}],
+      "title": "Search availability",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "id": 4,
+      "targets": [{"expr": "sum(rate(http_server_request_duration_seconds_bucket{http_route=\"/kb/search\", le=\"0.5\"}[5m])) / sum(rate(http_server_request_duration_seconds_count{http_route=\"/kb/search\"}[5m]))", "legendFormat": "fraction within 0.5s", "refId": "A"}],
+      "title": "Searches within latency objective",
+      "type": "timeseries"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["svcdesk", "lab3"],
+  "templating": {"list": []},
+  "time": {"from": "now-1h", "to": "now"},
+  "title": "svcdesk Lab 3",
+  "uid": "svcdesk-lab3",
+  "version": 1
+}

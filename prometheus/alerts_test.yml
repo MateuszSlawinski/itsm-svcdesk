@@ -1,0 +1,40 @@
+# ai-generated: 35% - written with GitHub Copilot; both firing edges target the declared alerts
+rule_files:
+  - alerts.yml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'http_server_request_duration_seconds_count{job="svcdesk", instance="svcdesk:8080", http_request_method="GET", http_route="/kb/search", http_response_status_code="200"}'
+        values: '0+600x70 42427.2+427.2x80'
+      - series: 'http_server_request_duration_seconds_count{job="svcdesk", instance="svcdesk:8080", http_request_method="GET", http_route="/kb/search", http_response_status_code="502"}'
+        values: '0x70 172.8+172.8x80'
+    alert_rule_test:
+      - eval_time: 100m
+        alertname: KbSearchErrorsBurnFast
+        exp_alerts: []
+      - eval_time: 101m
+        alertname: KbSearchErrorsBurnFast
+        exp_alerts:
+          - exp_labels: {service: svcdesk, slo: availability, severity: P1}
+            exp_annotations:
+              summary: "Page: /kb/search is burning its availability budget rapidly"
+
+  - interval: 1m
+    input_series:
+      - series: 'http_server_request_duration_seconds_count{job="svcdesk", instance="svcdesk:8080", http_request_method="GET", http_route="/kb/search", http_response_status_code="200"}'
+        values: '0+600x70 42528+528x80'
+      - series: 'http_server_request_duration_seconds_count{job="svcdesk", instance="svcdesk:8080", http_request_method="GET", http_route="/kb/search", http_response_status_code="502"}'
+        values: '0x70 72+72x80'
+    alert_rule_test:
+      - eval_time: 101m
+        alertname: KbSearchErrorsBurnSlow
+        exp_alerts: []
+      - eval_time: 102m
+        alertname: KbSearchErrorsBurnSlow
+        exp_alerts:
+          - exp_labels: {service: svcdesk, slo: availability, severity: P2}
+            exp_annotations:
+              summary: "Chat: /kb/search is steadily burning its availability budget"

@@ -3,11 +3,17 @@ import json
 import os
 import sqlite3
 import uuid
+import asyncio
+import time as time_module
+from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import urlopen
 from datetime import datetime, timedelta, timezone, time
 from zoneinfo import ZoneInfo
 
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
+from prometheus_client import CONTENT_TYPE_LATEST, CollectorRegistry, Histogram, generate_latest
 
 try:
     from dora_metrics import MetricInputError, compute_metrics
@@ -16,6 +22,15 @@ except ModuleNotFoundError:  # pragma: no cover - local repo execution
 
 app = FastAPI()
 DB = os.environ.get("SVCDESK_DB", "/data/svcdesk.db")
+KB_INDEX_URL = os.environ.get("KB_INDEX_URL", "http://kb-index:8080").rstrip("/")
+METRICS_REGISTRY = CollectorRegistry()
+REQUEST_DURATION = Histogram(
+    "http_server_request_duration_seconds",
+    "HTTP server request duration in seconds",
+    ("http_request_method", "http_route", "http_response_status_code"),
+    buckets=tuple(sorted([0.001, 0.005, 0.5] + [0.01 * 1.2**index for index in range(27)])),
+    registry=METRICS_REGISTRY,
+)
 TZ = ZoneInfo("Europe/Warsaw")
 MATRIX = [[None, "P1", "P2", "P3"], [None, "P2", "P3", "P4"], [None, "P3", "P4", "P4"]]
 TARGETS = {"P1": (15, 240), "P2": (60, 480), "P3": (240, 1440), "P4": (480, 4320)}
@@ -133,9 +148,47 @@ async def unexpected(request, exc):
     return error(500, "internal_error", "internal server error")
 
 
+@app.middleware("http")
+async def observe_request(request: Request, call_next):
+    started = time_module.perf_counter()
+    response = await call_next(request)
+    if request.url.path != "/metrics":
+        route = request.scope.get("route")
+        route_template = getattr(route, "path", "unmatched")
+        REQUEST_DURATION.labels(
+            request.method,
+            route_template,
+            str(response.status_code),
+        ).observe(time_module.perf_counter() - started)
+    return response
+
+
 @app.get("/health")
 def health():
     return {"status": "ok", "service": "svcdesk"}
+
+
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(METRICS_REGISTRY), media_type=CONTENT_TYPE_LATEST)
+
+
+def fetch_kb_search(query: str):
+    url = f"{KB_INDEX_URL}/search?{urlencode({'q': query})}"
+    with urlopen(url, timeout=3) as response:
+        return json.loads(response.read())
+
+
+@app.get("/kb/search")
+async def kb_search(request: Request):
+    query = request.query_params.get("q")
+    if not isinstance(query, str) or not 1 <= len(query) <= 200:
+        return error(400, "validation", "q must contain 1 to 200 characters")
+    try:
+        result = await asyncio.to_thread(fetch_kb_search, query)
+    except (HTTPError, URLError, TimeoutError, OSError, ValueError):
+        return error(502, "upstream_unavailable", "knowledge index is unavailable")
+    return {"query": query, "hits": result["hits"]}
 
 
 @app.post("/dora/metrics")

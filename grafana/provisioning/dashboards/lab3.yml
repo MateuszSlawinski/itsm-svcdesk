@@ -1,0 +1,11 @@
+# ai-generated: 20% - created with GitHub Copilot from the Lab 3 Grafana provisioning template
+apiVersion: 1
+providers:
+  - name: lab3
+    folder: svcdesk
+    type: file
+    disableDeletion: true
+    allowUiUpdates: false
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards
