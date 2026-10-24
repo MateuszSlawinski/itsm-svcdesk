@@ -1,0 +1,15 @@
+# ai-generated: 100% - drafted with GitHub Copilot from Lab 4 alert and routing requirements
+routes:
+  - labels: {alertname: ShopCheckoutErrors, service: checkout, severity: P1, cluster: shop}
+    receivers: [pager]
+  - labels: {alertname: ShopCheckoutLatency, service: checkout, severity: P1, cluster: shop}
+    receivers: [pager]
+  - labels: {alertname: KbSearchErrorsBurnSlow, service: svcdesk, slo: availability, severity: P2}
+    receivers: [chat]
+inhibitions:
+  - source: {alertname: ShopCheckoutErrors, service: checkout, severity: P1, cluster: shop}
+    target: {alertname: ShopCheckoutLatencyWarning, service: checkout, severity: P2, cluster: shop}
+    inhibited: true
+  - source: {alertname: ShopCheckoutErrors, service: checkout, severity: P1, cluster: shop}
+    target: {alertname: ShopCheckoutLatencyWarning, service: checkout, severity: P2, cluster: other}
+    inhibited: false

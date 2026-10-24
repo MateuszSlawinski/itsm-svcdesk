@@ -1,0 +1,50 @@
+{
+  "investigator": {
+    "agent": "course recorded investigator",
+    "model": "qwen3:4b-instruct",
+    "mcp_server": "prom_mcp.py (mcp 2.2.0)",
+    "transcript": "ai-rca/transcript.md"
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "hypothesis": "The payment service's internal \"charge\" span is failing, as evidenced by the presence of error counts in the raw data for `traces_span_metrics_calls_total{service_name=\"payment\", span_name=\"charge\", status_code=\"STATUS_CODE_ERROR\"}`.",
+      "component": "payment",
+      "predicts": "sum(rate(traces_span_metrics_calls_total{service_name=\"payment\",span_kind=\"SPAN_KIND_INTERNAL\",span_name=\"charge\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0",
+      "at": "2026-10-12T06:39:30Z",
+      "result": true,
+      "verdict": "correct",
+      "evidence": "The filter returned about 0.0116 error spans per second during the incident and no result five minutes before onset."
+    },
+    {
+      "id": "H2",
+      "hypothesis": "The payment service's \"charge\" span shows increasing error counts over time, indicating a failure in the core transaction processing logic, as shown in `traces_span_metrics_calls_total{service_name=\"payment\", span_name=\"charge\", status_code=\"STATUS_CODE_ERROR\"}`.",
+      "component": "payment",
+      "predicts": "increase(traces_span_metrics_calls_total{service_name=\"payment\",span_kind=\"SPAN_KIND_INTERNAL\",span_name=\"charge\",status_code=\"STATUS_CODE_ERROR\"}[5m]) > 0",
+      "at": "2026-10-12T06:39:30Z",
+      "result": true,
+      "verdict": "correct",
+      "evidence": "The five-minute increase was about 3.48 error spans during the incident and returned no result five minutes before onset."
+    },
+    {
+      "id": "H3",
+      "hypothesis": "The internal \"charge\" span within the payment service is failing, which likely causes downstream failures in the checkout service, as indicated by the correlation between `traces_span_metrics_calls_total{service_name=\"payment\", span_name=\"charge\", status_code=\"STATUS_CODE_ERROR\"}` and the error pattern observed in checkout's \"PaymentService/Charge\" span.",
+      "component": "payment",
+      "predicts": "(sum(rate(traces_span_metrics_calls_total{service_name=\"payment\",span_kind=\"SPAN_KIND_INTERNAL\",span_name=\"charge\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0) and on() (sum(rate(traces_span_metrics_calls_total{service_name=\"checkout\",span_kind=\"SPAN_KIND_CLIENT\",span_name=\"oteldemo.PaymentService/Charge\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0)",
+      "at": "2026-10-12T06:39:30Z",
+      "result": true,
+      "verdict": "partially_correct",
+      "evidence": "Both payment charge errors and checkout's failed payment-client spans were present. The metrics establish co-occurring failures, not causation by themselves; the expression returned nothing five minutes before onset."
+    },
+    {
+      "id": "H4",
+      "hypothesis": "The checkout service likely fails because it depends on the payment service's \"charge\" endpoint, as observed through the error pattern in `traces_span_metrics_calls_total{service_name=\"checkout\", span_name=\"PaymentService/Charge\", status_code=\"STATUS_CODE_ERROR\"}`.",
+      "component": "checkout",
+      "predicts": "(sum(rate(traces_span_metrics_calls_total{service_name=\"checkout\",span_kind=\"SPAN_KIND_SERVER\",span_name=\"oteldemo.CheckoutService/PlaceOrder\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0) and on() (sum(rate(traces_span_metrics_calls_total{service_name=\"checkout\",span_kind=\"SPAN_KIND_CLIENT\",span_name=\"oteldemo.PaymentService/Charge\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0)",
+      "at": "2026-10-12T06:39:30Z",
+      "result": true,
+      "verdict": "partially_correct",
+      "evidence": "Checkout PlaceOrder server errors and failed payment-client spans were both present. This supports the dependency hypothesis but does not independently prove causation; the query returned nothing five minutes before onset."
+    }
+  ]
+}

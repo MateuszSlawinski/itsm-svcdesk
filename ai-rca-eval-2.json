@@ -1,0 +1,40 @@
+{
+  "investigator": {
+    "agent": "course agent loop",
+    "model": "gemini-3.8-flash",
+    "mcp_server": "prom_mcp.py (mcp 2.2.0)",
+    "transcript": "ai-rca/second/transcript.md"
+  },
+  "hypotheses": [
+    {
+      "id": "G1",
+      "hypothesis": "The `payment` service is experiencing internal failures during payment authorization and charging transactions.",
+      "component": "payment",
+      "predicts": "sum(rate(traces_span_metrics_calls_total{service_name=\"payment\",span_kind=\"SPAN_KIND_INTERNAL\",span_name=\"charge\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0",
+      "at": "2026-10-12T06:40:00Z",
+      "result": true,
+      "verdict": "correct",
+      "evidence": "The five-minute error rate for the payment service's internal charge span was about 0.0141 errors per second at 06:40Z, with no result five minutes before onset."
+    },
+    {
+      "id": "G2",
+      "hypothesis": "Downstream failures in `checkout` during order placement are caused by failed RPC calls to the `payment` service.",
+      "component": "checkout",
+      "predicts": "(sum(rate(traces_span_metrics_calls_total{service_name=\"payment\",span_kind=\"SPAN_KIND_INTERNAL\",span_name=\"charge\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0) and on() (sum(rate(traces_span_metrics_calls_total{service_name=\"checkout\",span_kind=\"SPAN_KIND_SERVER\",span_name=\"oteldemo.CheckoutService/PlaceOrder\",status_code=\"STATUS_CODE_ERROR\"}[5m])) > 0)",
+      "at": "2026-10-12T06:40:00Z",
+      "result": true,
+      "verdict": "partially_correct",
+      "evidence": "The payment charge and checkout PlaceOrder error rates were both present, while the expression was empty five minutes before onset. This supports the observed dependency path, but co-occurring metrics alone do not prove causation."
+    },
+    {
+      "id": "G3",
+      "hypothesis": "The alerts for checkout errors (`ShopCheckoutErrors`) and service errors (`ShopServiceErrors`) were triggered simultaneously by this payment service outage propagating upstream to user-facing checkout flows.",
+      "component": "checkout",
+      "predicts": "count(ALERTS{alertname=~\"ShopCheckoutErrors|ShopServiceErrors\",alertstate=\"firing\",service_name=~\"checkout|payment\"} == 1) >= 2",
+      "at": "2026-10-12T06:42:00Z",
+      "result": true,
+      "verdict": "partially_correct",
+      "evidence": "At 06:42Z the checkout P1 and payment/checkout service P2 alerts were firing together, and the query was empty five minutes before onset. However, the alerts did not start simultaneously: ShopCheckoutErrors first fired at 06:39:20Z, while ShopServiceErrors first fired at 06:40:20Z."
+    }
+  ]
+}

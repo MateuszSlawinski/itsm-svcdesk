@@ -1,0 +1,39 @@
+# ai-generated: 100% - drafted with GitHub Copilot from the Lab 4 incident contract
+groups:
+  - name: shop-symptoms
+    rules:
+      - alert: ShopCheckoutErrors
+        expr: |
+          sum(rate(traces_span_metrics_calls_total{
+            service_name="checkout",
+            span_kind="SPAN_KIND_SERVER",
+            status_code="STATUS_CODE_ERROR"
+          }[5m]))
+          /
+          sum(rate(traces_span_metrics_calls_total{
+            service_name="checkout",
+            span_kind="SPAN_KIND_SERVER"
+          }[5m]))
+          > 0.05
+        labels:
+          service: checkout
+          severity: P1
+          cluster: shop
+        annotations:
+          summary: "Checkout server requests are failing"
+
+      - alert: ShopCheckoutLatency
+        expr: |
+          histogram_quantile(
+            0.99,
+            sum by (le) (rate(traces_span_metrics_duration_milliseconds_bucket{
+              service_name="checkout",
+              span_kind="SPAN_KIND_SERVER"
+            }[5m]))
+          ) > 2000
+        labels:
+          service: checkout
+          severity: P1
+          cluster: shop
+        annotations:
+          summary: "Checkout server requests are slow"
