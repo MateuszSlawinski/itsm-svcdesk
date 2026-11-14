@@ -1,0 +1,1147 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "fullName": "Trivy Vulnerability Scanner",
+          "informationUri": "https://github.com/aquasecurity/trivy",
+          "name": "Trivy",
+          "rules": [
+            {
+              "id": "CVE-2024-24762",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "`python-multipart` is a streaming multipart parser for Python. When us ..."
+              },
+              "fullDescription": {
+                "text": "`python-multipart` is a streaming multipart parser for Python. When using form data, `python-multipart` uses a Regular Expression to parse the HTTP `Content-Type` header, including options. An attacker could send a custom-made `Content-Type` option that is very difficult for the RegEx to process, consuming CPU resources and stalling indefinitely (minutes or more) while holding the main event loop. This means that process can't handle any more requests, leading to regular expression denial of service. This vulnerability has been patched in version 0.0.7."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-24762",
+              "help": {
+                "text": "Vulnerability CVE-2024-24762\nSeverity: HIGH\nPackage: python-multipart\nFixed Version: 0.0.7\nLink: [CVE-2024-24762](https://avd.aquasec.com/nvd/cve-2024-24762)\n`python-multipart` is a streaming multipart parser for Python. When using form data, `python-multipart` uses a Regular Expression to parse the HTTP `Content-Type` header, including options. An attacker could send a custom-made `Content-Type` option that is very difficult for the RegEx to process, consuming CPU resources and stalling indefinitely (minutes or more) while holding the main event loop. This means that process can't handle any more requests, leading to regular expression denial of service. This vulnerability has been patched in version 0.0.7.",
+                "markdown": "**Vulnerability CVE-2024-24762**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|python-multipart|0.0.7|[CVE-2024-24762](https://avd.aquasec.com/nvd/cve-2024-24762)|\n\n`python-multipart` is a streaming multipart parser for Python. When using form data, `python-multipart` uses a Regular Expression to parse the HTTP `Content-Type` header, including options. An attacker could send a custom-made `Content-Type` option that is very difficult for the RegEx to process, consuming CPU resources and stalling indefinitely (minutes or more) while holding the main event loop. This means that process can't handle any more requests, leading to regular expression denial of service. This vulnerability has been patched in version 0.0.7."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-53981",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: python-multipart has a DoS via deformation `multipart/form-data` boundary"
+              },
+              "fullDescription": {
+                "text": "python-multipart is a streaming multipart parser for Python. When parsing form data, python-multipart skips line breaks (CR \\r or LF \\n) in front of the first boundary and any tailing bytes after the last boundary. This happens one byte at a time and emits a log event each time, which may cause excessive logging for certain inputs. An attacker could abuse this by sending a malicious request with lots of data before the first or after the last boundary, causing high CPU load and stalling the processing thread for a significant amount of time. In case of ASGI application, this could stall the event loop and prevent other requests from being processed, resulting in a denial of service (DoS). This vulnerability is fixed in 0.0.18."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-53981",
+              "help": {
+                "text": "Vulnerability CVE-2024-53981\nSeverity: HIGH\nPackage: python-multipart\nFixed Version: 0.0.18\nLink: [CVE-2024-53981](https://avd.aquasec.com/nvd/cve-2024-53981)\npython-multipart is a streaming multipart parser for Python. When parsing form data, python-multipart skips line breaks (CR \\r or LF \\n) in front of the first boundary and any tailing bytes after the last boundary. This happens one byte at a time and emits a log event each time, which may cause excessive logging for certain inputs. An attacker could abuse this by sending a malicious request with lots of data before the first or after the last boundary, causing high CPU load and stalling the processing thread for a significant amount of time. In case of ASGI application, this could stall the event loop and prevent other requests from being processed, resulting in a denial of service (DoS). This vulnerability is fixed in 0.0.18.",
+                "markdown": "**Vulnerability CVE-2024-53981**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|python-multipart|0.0.18|[CVE-2024-53981](https://avd.aquasec.com/nvd/cve-2024-53981)|\n\npython-multipart is a streaming multipart parser for Python. When parsing form data, python-multipart skips line breaks (CR \\r or LF \\n) in front of the first boundary and any tailing bytes after the last boundary. This happens one byte at a time and emits a log event each time, which may cause excessive logging for certain inputs. An attacker could abuse this by sending a malicious request with lots of data before the first or after the last boundary, causing high CPU load and stalling the processing thread for a significant amount of time. In case of ASGI application, this could stall the event loop and prevent other requests from being processed, resulting in a denial of service (DoS). This vulnerability is fixed in 0.0.18."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "cvssv40_baseScore": 8.7,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-24486",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: Python-Multipart: Arbitrary file write via path traversal vulnerability"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Prior to version 0.0.22, a Path Traversal vulnerability exists when using non-default configuration options `UPLOAD_DIR` and `UPLOAD_KEEP_FILENAME=True`. An attacker can write uploaded files to arbitrary locations on the filesystem by crafting a malicious filename. Users should upgrade to version 0.0.22 to receive a patch or, as a workaround, avoid using `UPLOAD_KEEP_FILENAME=True` in project configurations."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-24486",
+              "help": {
+                "text": "Vulnerability CVE-2026-24486\nSeverity: HIGH\nPackage: python-multipart\nFixed Version: 0.0.22\nLink: [CVE-2026-24486](https://avd.aquasec.com/nvd/cve-2026-24486)\nPython-Multipart is a streaming multipart parser for Python. Prior to version 0.0.22, a Path Traversal vulnerability exists when using non-default configuration options `UPLOAD_DIR` and `UPLOAD_KEEP_FILENAME=True`. An attacker can write uploaded files to arbitrary locations on the filesystem by crafting a malicious filename. Users should upgrade to version 0.0.22 to receive a patch or, as a workaround, avoid using `UPLOAD_KEEP_FILENAME=True` in project configurations.",
+                "markdown": "**Vulnerability CVE-2026-24486**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|python-multipart|0.0.22|[CVE-2026-24486](https://avd.aquasec.com/nvd/cve-2026-24486)|\n\nPython-Multipart is a streaming multipart parser for Python. Prior to version 0.0.22, a Path Traversal vulnerability exists when using non-default configuration options `UPLOAD_DIR` and `UPLOAD_KEEP_FILENAME=True`. An attacker can write uploaded files to arbitrary locations on the filesystem by crafting a malicious filename. Users should upgrade to version 0.0.22 to receive a patch or, as a workaround, avoid using `UPLOAD_KEEP_FILENAME=True` in project configurations."
+              },
+              "properties": {
+                "cvssv3_baseScore": 8.6,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:L",
+                "precision": "very-high",
+                "security-severity": "8.6",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-42561",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: python-multipart: Denial of Service via excessive multipart part headers"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Prior to 0.0.27, python-multipart has a denial of service vulnerability in multipart part header parsing. When parsing multipart/form-data, MultipartParser previously had no limit on the number of part headers or the size of an individual part header. An attacker could send a request with either many repeated headers without terminating the header block or a single very large header value, causing excessive CPU work before request rejection or completion. This vulnerability is fixed in 0.0.27."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-42561",
+              "help": {
+                "text": "Vulnerability CVE-2026-42561\nSeverity: HIGH\nPackage: python-multipart\nFixed Version: 0.0.27\nLink: [CVE-2026-42561](https://avd.aquasec.com/nvd/cve-2026-42561)\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.27, python-multipart has a denial of service vulnerability in multipart part header parsing. When parsing multipart/form-data, MultipartParser previously had no limit on the number of part headers or the size of an individual part header. An attacker could send a request with either many repeated headers without terminating the header block or a single very large header value, causing excessive CPU work before request rejection or completion. This vulnerability is fixed in 0.0.27.",
+                "markdown": "**Vulnerability CVE-2026-42561**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|python-multipart|0.0.27|[CVE-2026-42561](https://avd.aquasec.com/nvd/cve-2026-42561)|\n\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.27, python-multipart has a denial of service vulnerability in multipart part header parsing. When parsing multipart/form-data, MultipartParser previously had no limit on the number of part headers or the size of an individual part header. An attacker could send a request with either many repeated headers without terminating the header block or a single very large header value, causing excessive CPU work before request rejection or completion. This vulnerability is fixed in 0.0.27."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-53539",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: Python-Multipart: Denial of Service via crafted form-urlencoded bodies"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, when parsing application/x-www-form-urlencoded bodies, QuerystringParser located the field separator with a two step lookup: it first scanned the entire remaining buffer for \u0026, and only when no \u0026 existed anywhere ahead did it fall back to scanning for ;. For a body that uses ; as the separator and contains no \u0026, every field iteration performed a full failed \u0026 scan over the entire remaining buffer before locating the nearby ;. With N semicolon separated fields in a chunk of size B, this yields O(B^2) byte comparisons per chunk. An attacker can submit a small crafted body of the form a;a;a;... and cause the parser to spend seconds of CPU per request. A handful of concurrent requests can exhaust worker processes. This vulnerability is fixed in 0.0.30."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-53539",
+              "help": {
+                "text": "Vulnerability CVE-2026-53539\nSeverity: HIGH\nPackage: python-multipart\nFixed Version: 0.0.30\nLink: [CVE-2026-53539](https://avd.aquasec.com/nvd/cve-2026-53539)\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, when parsing application/x-www-form-urlencoded bodies, QuerystringParser located the field separator with a two step lookup: it first scanned the entire remaining buffer for \u0026, and only when no \u0026 existed anywhere ahead did it fall back to scanning for ;. For a body that uses ; as the separator and contains no \u0026, every field iteration performed a full failed \u0026 scan over the entire remaining buffer before locating the nearby ;. With N semicolon separated fields in a chunk of size B, this yields O(B^2) byte comparisons per chunk. An attacker can submit a small crafted body of the form a;a;a;... and cause the parser to spend seconds of CPU per request. A handful of concurrent requests can exhaust worker processes. This vulnerability is fixed in 0.0.30.",
+                "markdown": "**Vulnerability CVE-2026-53539**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|python-multipart|0.0.30|[CVE-2026-53539](https://avd.aquasec.com/nvd/cve-2026-53539)|\n\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, when parsing application/x-www-form-urlencoded bodies, QuerystringParser located the field separator with a two step lookup: it first scanned the entire remaining buffer for \u0026, and only when no \u0026 existed anywhere ahead did it fall back to scanning for ;. For a body that uses ; as the separator and contains no \u0026, every field iteration performed a full failed \u0026 scan over the entire remaining buffer before locating the nearby ;. With N semicolon separated fields in a chunk of size B, this yields O(B^2) byte comparisons per chunk. An attacker can submit a small crafted body of the form a;a;a;... and cause the parser to spend seconds of CPU per request. A handful of concurrent requests can exhaust worker processes. This vulnerability is fixed in 0.0.30."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-40347",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: Python-Multipart: Denial of Service via crafted multipart/form-data requests"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Versions prior to 0.0.26 have a denial of service vulnerability when parsing crafted `multipart/form-data` requests with large preamble or epilogue sections. Upgrade to version 0.0.26 or later, which skips ahead to the next boundary candidate when processing leading CR/LF data and immediately discards epilogue data after the closing boundary."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-40347",
+              "help": {
+                "text": "Vulnerability CVE-2026-40347\nSeverity: MEDIUM\nPackage: python-multipart\nFixed Version: 0.0.26\nLink: [CVE-2026-40347](https://avd.aquasec.com/nvd/cve-2026-40347)\nPython-Multipart is a streaming multipart parser for Python. Versions prior to 0.0.26 have a denial of service vulnerability when parsing crafted `multipart/form-data` requests with large preamble or epilogue sections. Upgrade to version 0.0.26 or later, which skips ahead to the next boundary candidate when processing leading CR/LF data and immediately discards epilogue data after the closing boundary.",
+                "markdown": "**Vulnerability CVE-2026-40347**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|python-multipart|0.0.26|[CVE-2026-40347](https://avd.aquasec.com/nvd/cve-2026-40347)|\n\nPython-Multipart is a streaming multipart parser for Python. Versions prior to 0.0.26 have a denial of service vulnerability when parsing crafted `multipart/form-data` requests with large preamble or epilogue sections. Upgrade to version 0.0.26 or later, which skips ahead to the next boundary candidate when processing leading CR/LF data and immediately discards epilogue data after the closing boundary."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-53537",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "multipart: Python-Multipart: Information disclosure via header parsing discrepancy"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, parse_options_header parsed Content-Disposition (and Content-Type) headers with email.message.Message, which transparently applies RFC 2231/5987 decoding. The extended parameter syntax (filename*=charset'lang'value, name*=..., and the filename*0/filename*1 continuation form) is decoded and surfaced under the bare filename/name key, and overrides the plain parameter when both are present. RFC 7578 §4.2 explicitly forbids the filename* form in multipart/form-data. Components that follow RFC 7578, or that do not implement RFC 2231/5987 decoding for multipart/form-data (WAFs, proxies, gateways), may interpret such a header differently. An attacker can exploit that difference to smuggle a different field name or filename past an upstream inspector to the backend. This vulnerability is fixed in 0.0.30."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-53537",
+              "help": {
+                "text": "Vulnerability CVE-2026-53537\nSeverity: LOW\nPackage: python-multipart\nFixed Version: 0.0.30\nLink: [CVE-2026-53537](https://avd.aquasec.com/nvd/cve-2026-53537)\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, parse_options_header parsed Content-Disposition (and Content-Type) headers with email.message.Message, which transparently applies RFC 2231/5987 decoding. The extended parameter syntax (filename*=charset'lang'value, name*=..., and the filename*0/filename*1 continuation form) is decoded and surfaced under the bare filename/name key, and overrides the plain parameter when both are present. RFC 7578 §4.2 explicitly forbids the filename* form in multipart/form-data. Components that follow RFC 7578, or that do not implement RFC 2231/5987 decoding for multipart/form-data (WAFs, proxies, gateways), may interpret such a header differently. An attacker can exploit that difference to smuggle a different field name or filename past an upstream inspector to the backend. This vulnerability is fixed in 0.0.30.",
+                "markdown": "**Vulnerability CVE-2026-53537**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|python-multipart|0.0.30|[CVE-2026-53537](https://avd.aquasec.com/nvd/cve-2026-53537)|\n\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, parse_options_header parsed Content-Disposition (and Content-Type) headers with email.message.Message, which transparently applies RFC 2231/5987 decoding. The extended parameter syntax (filename*=charset'lang'value, name*=..., and the filename*0/filename*1 continuation form) is decoded and surfaced under the bare filename/name key, and overrides the plain parameter when both are present. RFC 7578 §4.2 explicitly forbids the filename* form in multipart/form-data. Components that follow RFC 7578, or that do not implement RFC 2231/5987 decoding for multipart/form-data (WAFs, proxies, gateways), may interpret such a header differently. An attacker can exploit that difference to smuggle a different field name or filename past an upstream inspector to the backend. This vulnerability is fixed in 0.0.30."
+              },
+              "properties": {
+                "cvssv3_baseScore": 3.7,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "3.7",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-53538",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: Python-Multipart: Information disclosure due to parser differential in form data handling"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, QuerystringParser treated ; as a field separator in application/x-www-form-urlencoded bodies, in addition to \u0026. The WHATWG URL standard, modern browsers, and Python's urllib.parse (since the CVE-2021-23336 fix) treat only \u0026 as a separator. This creates a parser differential: the same bytes are tokenized into different fields than a WHATWG compliant intermediary would produce, allowing an attacker to smuggle extra form fields past an upstream body inspecting component. This vulnerability is fixed in 0.0.30."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-53538",
+              "help": {
+                "text": "Vulnerability CVE-2026-53538\nSeverity: LOW\nPackage: python-multipart\nFixed Version: 0.0.30\nLink: [CVE-2026-53538](https://avd.aquasec.com/nvd/cve-2026-53538)\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, QuerystringParser treated ; as a field separator in application/x-www-form-urlencoded bodies, in addition to \u0026. The WHATWG URL standard, modern browsers, and Python's urllib.parse (since the CVE-2021-23336 fix) treat only \u0026 as a separator. This creates a parser differential: the same bytes are tokenized into different fields than a WHATWG compliant intermediary would produce, allowing an attacker to smuggle extra form fields past an upstream body inspecting component. This vulnerability is fixed in 0.0.30.",
+                "markdown": "**Vulnerability CVE-2026-53538**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|python-multipart|0.0.30|[CVE-2026-53538](https://avd.aquasec.com/nvd/cve-2026-53538)|\n\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.30, QuerystringParser treated ; as a field separator in application/x-www-form-urlencoded bodies, in addition to \u0026. The WHATWG URL standard, modern browsers, and Python's urllib.parse (since the CVE-2021-23336 fix) treat only \u0026 as a separator. This creates a parser differential: the same bytes are tokenized into different fields than a WHATWG compliant intermediary would produce, allowing an attacker to smuggle extra form fields past an upstream body inspecting component. This vulnerability is fixed in 0.0.30."
+              },
+              "properties": {
+                "cvssv3_baseScore": 3.7,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "3.7",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-53540",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "python-multipart: Python-Multipart: Negative Content-Length in parse_form buffers the entire body in memory"
+              },
+              "fullDescription": {
+                "text": "Python-Multipart is a streaming multipart parser for Python. Prior to 0.0.31, parse_form() did not validate the Content-Length header before using it to bound its chunked read of the request body. A negative Content-Length turned the bounded read into a read-until-EOF, so the entire body was loaded into memory in a single read instead of in fixed-size chunks. This vulnerability is fixed in 0.0.31."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-53540",
+              "help": {
+                "text": "Vulnerability CVE-2026-53540\nSeverity: LOW\nPackage: python-multipart\nFixed Version: 0.0.31\nLink: [CVE-2026-53540](https://avd.aquasec.com/nvd/cve-2026-53540)\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.31, parse_form() did not validate the Content-Length header before using it to bound its chunked read of the request body. A negative Content-Length turned the bounded read into a read-until-EOF, so the entire body was loaded into memory in a single read instead of in fixed-size chunks. This vulnerability is fixed in 0.0.31.",
+                "markdown": "**Vulnerability CVE-2026-53540**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|python-multipart|0.0.31|[CVE-2026-53540](https://avd.aquasec.com/nvd/cve-2026-53540)|\n\nPython-Multipart is a streaming multipart parser for Python. Prior to 0.0.31, parse_form() did not validate the Content-Length header before using it to bound its chunked read of the request body. A negative Content-Length turned the bounded read into a read-until-EOF, so the entire body was loaded into memory in a single read instead of in fixed-size chunks. This vulnerability is fixed in 0.0.31."
+              },
+              "properties": {
+                "cvssv3_baseScore": 3.7,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "3.7",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2024-47874",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette Denial of service (DoS) via multipart/form-data"
+              },
+              "fullDescription": {
+                "text": "Starlette is an Asynchronous Server Gateway Interface (ASGI) framework/toolkit. Prior to version 0.40.0, Starlette treats `multipart/form-data` parts without a `filename` as text form fields and buffers those in byte strings with no size limit. This allows an attacker to upload arbitrary large form fields and cause Starlette to both slow down significantly due to excessive memory allocations and copy operations, and also consume more and more memory until the server starts swapping and grinds to a halt, or the OS terminates the server process with an OOM error. Uploading multiple such requests in parallel may be enough to render a service practically unusable, even if reasonable request size limits are enforced by a reverse proxy in front of Starlette. This Denial of service (DoS) vulnerability affects all applications built with Starlette (or FastAPI) accepting form requests. Verison 0.40.0 fixes this issue."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2024-47874",
+              "help": {
+                "text": "Vulnerability CVE-2024-47874\nSeverity: HIGH\nPackage: starlette\nFixed Version: 0.40.0\nLink: [CVE-2024-47874](https://avd.aquasec.com/nvd/cve-2024-47874)\nStarlette is an Asynchronous Server Gateway Interface (ASGI) framework/toolkit. Prior to version 0.40.0, Starlette treats `multipart/form-data` parts without a `filename` as text form fields and buffers those in byte strings with no size limit. This allows an attacker to upload arbitrary large form fields and cause Starlette to both slow down significantly due to excessive memory allocations and copy operations, and also consume more and more memory until the server starts swapping and grinds to a halt, or the OS terminates the server process with an OOM error. Uploading multiple such requests in parallel may be enough to render a service practically unusable, even if reasonable request size limits are enforced by a reverse proxy in front of Starlette. This Denial of service (DoS) vulnerability affects all applications built with Starlette (or FastAPI) accepting form requests. Verison 0.40.0 fixes this issue.",
+                "markdown": "**Vulnerability CVE-2024-47874**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|starlette|0.40.0|[CVE-2024-47874](https://avd.aquasec.com/nvd/cve-2024-47874)|\n\nStarlette is an Asynchronous Server Gateway Interface (ASGI) framework/toolkit. Prior to version 0.40.0, Starlette treats `multipart/form-data` parts without a `filename` as text form fields and buffers those in byte strings with no size limit. This allows an attacker to upload arbitrary large form fields and cause Starlette to both slow down significantly due to excessive memory allocations and copy operations, and also consume more and more memory until the server starts swapping and grinds to a halt, or the OS terminates the server process with an OOM error. Uploading multiple such requests in parallel may be enough to render a service practically unusable, even if reasonable request size limits are enforced by a reverse proxy in front of Starlette. This Denial of service (DoS) vulnerability affects all applications built with Starlette (or FastAPI) accepting form requests. Verison 0.40.0 fixes this issue."
+              },
+              "properties": {
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N",
+                "cvssv40_baseScore": 8.7,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-48818",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+              },
+              "fullDescription": {
+                "text": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and earlier, StaticFiles on Windows is vulnerable to SSRF. An UNC path such as \\\\attacker.com\\share can cause os.path.realpath to initiate an outbound SMB connection before the path is rejected, exposing the service account’s NTLMv2 credentials for offline cracking or relay even though the HTTP response is only a 404. The issue affects default follow_symlink=False deployments, including frameworks built on Starlette such as FastAPI; POSIX systems and follow_symlink=True are unaffected. The issue is fixed in 1.1.0."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-48818",
+              "help": {
+                "text": "Vulnerability CVE-2026-48818\nSeverity: HIGH\nPackage: starlette\nFixed Version: 1.1.0\nLink: [CVE-2026-48818](https://avd.aquasec.com/nvd/cve-2026-48818)\nStarlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and earlier, StaticFiles on Windows is vulnerable to SSRF. An UNC path such as \\\\attacker.com\\share can cause os.path.realpath to initiate an outbound SMB connection before the path is rejected, exposing the service account’s NTLMv2 credentials for offline cracking or relay even though the HTTP response is only a 404. The issue affects default follow_symlink=False deployments, including frameworks built on Starlette such as FastAPI; POSIX systems and follow_symlink=True are unaffected. The issue is fixed in 1.1.0.",
+                "markdown": "**Vulnerability CVE-2026-48818**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|starlette|1.1.0|[CVE-2026-48818](https://avd.aquasec.com/nvd/cve-2026-48818)|\n\nStarlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and earlier, StaticFiles on Windows is vulnerable to SSRF. An UNC path such as \\\\attacker.com\\share can cause os.path.realpath to initiate an outbound SMB connection before the path is rejected, exposing the service account’s NTLMv2 credentials for offline cracking or relay even though the HTTP response is only a 404. The issue affects default follow_symlink=False deployments, including frameworks built on Starlette such as FastAPI; POSIX systems and follow_symlink=True are unaffected. The issue is fixed in 1.1.0."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-54283",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette: request.form() limits silently ignored for application/x-www-form-urlencoded enable DoS"
+              },
+              "fullDescription": {
+                "text": "Starlette is a lightweight ASGI framework/toolkit. From 0.4.1 until 1.3.1, request.form() accepts max_fields and max_part_size to bound resource consumption while parsing form data. These limits are enforced for multipart/form-data, but silently ignored for application/x-www-form-urlencoded. An unauthenticated attacker can therefore send a urlencoded body with an arbitrarily large number of fields or an arbitrarily large field, even when the application configured limits it believed would apply. This vulnerability is fixed in 1.3.1."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-54283",
+              "help": {
+                "text": "Vulnerability CVE-2026-54283\nSeverity: HIGH\nPackage: starlette\nFixed Version: 1.3.1\nLink: [CVE-2026-54283](https://avd.aquasec.com/nvd/cve-2026-54283)\nStarlette is a lightweight ASGI framework/toolkit. From 0.4.1 until 1.3.1, request.form() accepts max_fields and max_part_size to bound resource consumption while parsing form data. These limits are enforced for multipart/form-data, but silently ignored for application/x-www-form-urlencoded. An unauthenticated attacker can therefore send a urlencoded body with an arbitrarily large number of fields or an arbitrarily large field, even when the application configured limits it believed would apply. This vulnerability is fixed in 1.3.1.",
+                "markdown": "**Vulnerability CVE-2026-54283**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|HIGH|starlette|1.3.1|[CVE-2026-54283](https://avd.aquasec.com/nvd/cve-2026-54283)|\n\nStarlette is a lightweight ASGI framework/toolkit. From 0.4.1 until 1.3.1, request.form() accepts max_fields and max_part_size to bound resource consumption while parsing form data. These limits are enforced for multipart/form-data, but silently ignored for application/x-www-form-urlencoded. An unauthenticated attacker can therefore send a urlencoded body with an arbitrarily large number of fields or an arbitrarily large field, even when the application configured limits it believed would apply. This vulnerability is fixed in 1.3.1."
+              },
+              "properties": {
+                "cvssv3_baseScore": 7.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                "precision": "very-high",
+                "security-severity": "7.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2023-29159",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "Directory traversal vulnerability in Starlette versions 0.13.5 and lat ..."
+              },
+              "fullDescription": {
+                "text": "Directory traversal vulnerability in Starlette versions 0.13.5 and later and prior to 0.27.0 allows a remote unauthenticated attacker to view files in a web service which was built using Starlette."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2023-29159",
+              "help": {
+                "text": "Vulnerability CVE-2023-29159\nSeverity: MEDIUM\nPackage: starlette\nFixed Version: 0.27.0\nLink: [CVE-2023-29159](https://avd.aquasec.com/nvd/cve-2023-29159)\nDirectory traversal vulnerability in Starlette versions 0.13.5 and later and prior to 0.27.0 allows a remote unauthenticated attacker to view files in a web service which was built using Starlette.",
+                "markdown": "**Vulnerability CVE-2023-29159**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|starlette|0.27.0|[CVE-2023-29159](https://avd.aquasec.com/nvd/cve-2023-29159)|\n\nDirectory traversal vulnerability in Starlette versions 0.13.5 and later and prior to 0.27.0 allows a remote unauthenticated attacker to view files in a web service which was built using Starlette."
+              },
+              "properties": {
+                "cvssv3_baseScore": 3.7,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+                "cvssv40_baseScore": 6.3,
+                "cvssv40_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+                "precision": "very-high",
+                "security-severity": "3.7",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-54121",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette denial-of-service"
+              },
+              "fullDescription": {
+                "text": "Starlette is a lightweight ASGI (Asynchronous Server Gateway Interface) framework/toolkit, designed for building async web services in Python. In versions 0.47.1 and below, when parsing a multi-part form with large files (greater than the default max spool size) starlette will block the main thread to roll the file over to disk. This blocks the event thread which means the application can't accept new connections. The UploadFile code has a minor bug where instead of just checking for self._in_memory, the logic should also check if the additional bytes will cause a rollover. The vulnerability is fixed in version 0.47.2."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-54121",
+              "help": {
+                "text": "Vulnerability CVE-2025-54121\nSeverity: MEDIUM\nPackage: starlette\nFixed Version: 0.47.2\nLink: [CVE-2025-54121](https://avd.aquasec.com/nvd/cve-2025-54121)\nStarlette is a lightweight ASGI (Asynchronous Server Gateway Interface) framework/toolkit, designed for building async web services in Python. In versions 0.47.1 and below, when parsing a multi-part form with large files (greater than the default max spool size) starlette will block the main thread to roll the file over to disk. This blocks the event thread which means the application can't accept new connections. The UploadFile code has a minor bug where instead of just checking for self._in_memory, the logic should also check if the additional bytes will cause a rollover. The vulnerability is fixed in version 0.47.2.",
+                "markdown": "**Vulnerability CVE-2025-54121**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|starlette|0.47.2|[CVE-2025-54121](https://avd.aquasec.com/nvd/cve-2025-54121)|\n\nStarlette is a lightweight ASGI (Asynchronous Server Gateway Interface) framework/toolkit, designed for building async web services in Python. In versions 0.47.1 and below, when parsing a multi-part form with large files (greater than the default max spool size) starlette will block the main thread to roll the file over to disk. This blocks the event thread which means the application can't accept new connections. The UploadFile code has a minor bug where instead of just checking for self._in_memory, the logic should also check if the additional bytes will cause a rollover. The vulnerability is fixed in version 0.47.2."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-48710",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette: Security restriction bypass via malformed HTTP Host header"
+              },
+              "fullDescription": {
+                "text": "Starlette is a lightweight ASGI framework/toolkit. Prior to version 1.0.1, the HTTP `Host` request header was not validated before being used to reconstruct `request.url`. Because the routing algorithm relies on the raw HTTP path while `request.url` is rebuilt from the `Host` header, a malformed header could make `request.url.path` differ from the path that was actually requested. Middleware and endpoints that apply security restrictions based on `request.url` (rather than the raw `scope` path) could therefore be bypassed. Users should upgrade to a version greater than or equal to version 1.0.1, which validates the `Host` header against the grammar of RFC 9112 §3.2 / RFC 3986 §3.2.2 when constructing `request.url` and falls back to `scope[\"server\"]` for malformed values."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-48710",
+              "help": {
+                "text": "Vulnerability CVE-2026-48710\nSeverity: MEDIUM\nPackage: starlette\nFixed Version: 1.0.1\nLink: [CVE-2026-48710](https://avd.aquasec.com/nvd/cve-2026-48710)\nStarlette is a lightweight ASGI framework/toolkit. Prior to version 1.0.1, the HTTP `Host` request header was not validated before being used to reconstruct `request.url`. Because the routing algorithm relies on the raw HTTP path while `request.url` is rebuilt from the `Host` header, a malformed header could make `request.url.path` differ from the path that was actually requested. Middleware and endpoints that apply security restrictions based on `request.url` (rather than the raw `scope` path) could therefore be bypassed. Users should upgrade to a version greater than or equal to version 1.0.1, which validates the `Host` header against the grammar of RFC 9112 §3.2 / RFC 3986 §3.2.2 when constructing `request.url` and falls back to `scope[\"server\"]` for malformed values.",
+                "markdown": "**Vulnerability CVE-2026-48710**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|starlette|1.0.1|[CVE-2026-48710](https://avd.aquasec.com/nvd/cve-2026-48710)|\n\nStarlette is a lightweight ASGI framework/toolkit. Prior to version 1.0.1, the HTTP `Host` request header was not validated before being used to reconstruct `request.url`. Because the routing algorithm relies on the raw HTTP path while `request.url` is rebuilt from the `Host` header, a malformed header could make `request.url.path` differ from the path that was actually requested. Middleware and endpoints that apply security restrictions based on `request.url` (rather than the raw `scope` path) could therefore be bypassed. Users should upgrade to a version greater than or equal to version 1.0.1, which validates the `Host` header against the grammar of RFC 9112 §3.2 / RFC 3986 §3.2.2 when constructing `request.url` and falls back to `scope[\"server\"]` for malformed values."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.5,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "6.5",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-48817",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette: Information disclosure and unintended method execution via non-standard HTTP methods"
+              },
+              "fullDescription": {
+                "text": "Starlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and below, when dispatching a request, HTTPEndpoint selects the handler by lowercasing the HTTP method and looking it up as an attribute with getattr, without restricting the lookup to a known set of HTTP verbs. When an HTTPEndpoint subclass is registered through Route(...) without an explicit methods= argument, the route does not constrain the method and every method reaches the endpoint. If a non-standard HTTP method whose lowercased name matches an attribute on the endpoint subclass reaches the endpoint, that attribute is invoked as if it were a request handler. An attacker can use this to reach methods that were never meant to be HTTP handlers, such as internal helpers, without the authorization checks applied by the intended public handler. An application (including Starlette-based frameworks like FastAPI) is affected if it registers an HTTPEndpoint subclass via Route(...) without explicitly setting methods=, and that subclass includes extra methods named like non-standard HTTP verbs that take one request argument and return a response. This issue has been fixed in version 1.1.0."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-48817",
+              "help": {
+                "text": "Vulnerability CVE-2026-48817\nSeverity: MEDIUM\nPackage: starlette\nFixed Version: 1.1.0\nLink: [CVE-2026-48817](https://avd.aquasec.com/nvd/cve-2026-48817)\nStarlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and below, when dispatching a request, HTTPEndpoint selects the handler by lowercasing the HTTP method and looking it up as an attribute with getattr, without restricting the lookup to a known set of HTTP verbs. When an HTTPEndpoint subclass is registered through Route(...) without an explicit methods= argument, the route does not constrain the method and every method reaches the endpoint. If a non-standard HTTP method whose lowercased name matches an attribute on the endpoint subclass reaches the endpoint, that attribute is invoked as if it were a request handler. An attacker can use this to reach methods that were never meant to be HTTP handlers, such as internal helpers, without the authorization checks applied by the intended public handler. An application (including Starlette-based frameworks like FastAPI) is affected if it registers an HTTPEndpoint subclass via Route(...) without explicitly setting methods=, and that subclass includes extra methods named like non-standard HTTP verbs that take one request argument and return a response. This issue has been fixed in version 1.1.0.",
+                "markdown": "**Vulnerability CVE-2026-48817**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|starlette|1.1.0|[CVE-2026-48817](https://avd.aquasec.com/nvd/cve-2026-48817)|\n\nStarlette is a lightweight ASGI framework/toolkit. In versions 1.0.1 and below, when dispatching a request, HTTPEndpoint selects the handler by lowercasing the HTTP method and looking it up as an attribute with getattr, without restricting the lookup to a known set of HTTP verbs. When an HTTPEndpoint subclass is registered through Route(...) without an explicit methods= argument, the route does not constrain the method and every method reaches the endpoint. If a non-standard HTTP method whose lowercased name matches an attribute on the endpoint subclass reaches the endpoint, that attribute is invoked as if it were a request handler. An attacker can use this to reach methods that were never meant to be HTTP handlers, such as internal helpers, without the authorization checks applied by the intended public handler. An application (including Starlette-based frameworks like FastAPI) is affected if it registers an HTTPEndpoint subclass via Route(...) without explicitly setting methods=, and that subclass includes extra methods named like non-standard HTTP verbs that take one request argument and return a response. This issue has been fixed in version 1.1.0."
+              },
+              "properties": {
+                "cvssv3_baseScore": 5.3,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "5.3",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2026-54282",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "starlette: Starlette: Information disclosure due to improper HTTP request path validation"
+              },
+              "fullDescription": {
+                "text": "Starlette is a lightweight ASGI framework/toolkit. Prior to 1.3.0, the HTTP request path is not validated before being used to reconstruct request.url. Because request.url is rebuilt by concatenating {scheme}://{host}{path} and re-parsing the result, a path that does not begin with / (for example @google.com) moves the authority boundary during re-parsing, so request.url.hostname and request.url.netloc become attacker-controlled. Code that reads request.url.hostname (rather than the Host header or scope) can therefore be misled into trusting an attacker-supplied host. This vulnerability is fixed in 1.3.0."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2026-54282",
+              "help": {
+                "text": "Vulnerability CVE-2026-54282\nSeverity: LOW\nPackage: starlette\nFixed Version: 1.3.0\nLink: [CVE-2026-54282](https://avd.aquasec.com/nvd/cve-2026-54282)\nStarlette is a lightweight ASGI framework/toolkit. Prior to 1.3.0, the HTTP request path is not validated before being used to reconstruct request.url. Because request.url is rebuilt by concatenating {scheme}://{host}{path} and re-parsing the result, a path that does not begin with / (for example @google.com) moves the authority boundary during re-parsing, so request.url.hostname and request.url.netloc become attacker-controlled. Code that reads request.url.hostname (rather than the Host header or scope) can therefore be misled into trusting an attacker-supplied host. This vulnerability is fixed in 1.3.0.",
+                "markdown": "**Vulnerability CVE-2026-54282**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|LOW|starlette|1.3.0|[CVE-2026-54282](https://avd.aquasec.com/nvd/cve-2026-54282)|\n\nStarlette is a lightweight ASGI framework/toolkit. Prior to 1.3.0, the HTTP request path is not validated before being used to reconstruct request.url. Because request.url is rebuilt by concatenating {scheme}://{host}{path} and re-parsing the result, a path that does not begin with / (for example @google.com) moves the authority boundary during re-parsing, so request.url.hostname and request.url.netloc become attacker-controlled. Code that reads request.url.hostname (rather than the Host header or scope) can therefore be misled into trusting an attacker-supplied host. This vulnerability is fixed in 1.3.0."
+              },
+              "properties": {
+                "cvssv3_baseScore": 3.7,
+                "cvssv3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+                "precision": "very-high",
+                "security-severity": "3.7",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "LOW"
+                ]
+              }
+            },
+            {
+              "id": "CVE-2025-71176",
+              "name": "LanguageSpecificPackageVulnerability",
+              "shortDescription": {
+                "text": "pytest: pytest: Denial of Service or Privilege Escalation via insecure temporary directory handling"
+              },
+              "fullDescription": {
+                "text": "pytest through 9.0.2 on UNIX relies on directories with the /tmp/pytest-of-{user} name pattern, which allows local users to cause a denial of service or possibly gain privileges."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://avd.aquasec.com/nvd/cve-2025-71176",
+              "help": {
+                "text": "Vulnerability CVE-2025-71176\nSeverity: MEDIUM\nPackage: pytest\nFixed Version: 9.0.3\nLink: [CVE-2025-71176](https://avd.aquasec.com/nvd/cve-2025-71176)\npytest through 9.0.2 on UNIX relies on directories with the /tmp/pytest-of-{user} name pattern, which allows local users to cause a denial of service or possibly gain privileges.",
+                "markdown": "**Vulnerability CVE-2025-71176**\n| Severity | Package | Fixed Version | Link |\n| --- | --- | --- | --- |\n|MEDIUM|pytest|9.0.3|[CVE-2025-71176](https://avd.aquasec.com/nvd/cve-2025-71176)|\n\npytest through 9.0.2 on UNIX relies on directories with the /tmp/pytest-of-{user} name pattern, which allows local users to cause a denial of service or possibly gain privileges."
+              },
+              "properties": {
+                "cvssv3_baseScore": 6.8,
+                "cvssv3_vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L",
+                "precision": "very-high",
+                "security-severity": "6.8",
+                "tags": [
+                  "vulnerability",
+                  "security",
+                  "MEDIUM"
+                ]
+              }
+            },
+            {
+              "id": "github-pat",
+              "name": "Secret",
+              "shortDescription": {
+                "text": "GitHub Personal Access Token"
+              },
+              "fullDescription": {
+                "text": "GITHUB_TOKEN = \"****************************************\""
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/aquasecurity/trivy/blob/main/pkg/fanal/secret/builtin-rules.go",
+              "help": {
+                "text": "Secret GitHub Personal Access Token\nSeverity: CRITICAL\nMatch: GITHUB_TOKEN = \"****************************************\"",
+                "markdown": "**Secret GitHub Personal Access Token**\n| Severity | Match |\n| --- | --- |\n|CRITICAL|GITHUB_TOKEN = \"****************************************\"|"
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "9.5",
+                "tags": [
+                  "secret",
+                  "security",
+                  "CRITICAL"
+                ]
+              }
+            },
+            {
+              "id": "private-key",
+              "name": "Secret",
+              "shortDescription": {
+                "text": "Asymmetric Private Key"
+              },
+              "fullDescription": {
+                "text": "****************************************************************"
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/aquasecurity/trivy/blob/main/pkg/fanal/secret/builtin-rules.go",
+              "help": {
+                "text": "Secret Asymmetric Private Key\nSeverity: HIGH\nMatch: ****************************************************************",
+                "markdown": "**Secret Asymmetric Private Key**\n| Severity | Match |\n| --- | --- |\n|HIGH|****************************************************************|"
+              },
+              "properties": {
+                "precision": "very-high",
+                "security-severity": "8.0",
+                "tags": [
+                  "secret",
+                  "security",
+                  "HIGH"
+                ]
+              }
+            }
+          ],
+          "version": "0.74.0"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CVE-2024-24762",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2024-24762\nSeverity: HIGH\nFixed Version: 0.0.7\nLink: [CVE-2024-24762](https://avd.aquasec.com/nvd/cve-2024-24762)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-53981",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2024-53981\nSeverity: HIGH\nFixed Version: 0.0.18\nLink: [CVE-2024-53981](https://avd.aquasec.com/nvd/cve-2024-53981)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-24486",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-24486\nSeverity: HIGH\nFixed Version: 0.0.22\nLink: [CVE-2026-24486](https://avd.aquasec.com/nvd/cve-2026-24486)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-42561",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-42561\nSeverity: HIGH\nFixed Version: 0.0.27\nLink: [CVE-2026-42561](https://avd.aquasec.com/nvd/cve-2026-42561)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-53539",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-53539\nSeverity: HIGH\nFixed Version: 0.0.30\nLink: [CVE-2026-53539](https://avd.aquasec.com/nvd/cve-2026-53539)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-40347",
+          "ruleIndex": 5,
+          "level": "warning",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-40347\nSeverity: MEDIUM\nFixed Version: 0.0.26\nLink: [CVE-2026-40347](https://avd.aquasec.com/nvd/cve-2026-40347)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-53537",
+          "ruleIndex": 6,
+          "level": "note",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-53537\nSeverity: LOW\nFixed Version: 0.0.30\nLink: [CVE-2026-53537](https://avd.aquasec.com/nvd/cve-2026-53537)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-53538",
+          "ruleIndex": 7,
+          "level": "note",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-53538\nSeverity: LOW\nFixed Version: 0.0.30\nLink: [CVE-2026-53538](https://avd.aquasec.com/nvd/cve-2026-53538)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-53540",
+          "ruleIndex": 8,
+          "level": "note",
+          "message": {
+            "text": "Package: python-multipart\nInstalled Version: 0.0.5\nVulnerability CVE-2026-53540\nSeverity: LOW\nFixed Version: 0.0.31\nLink: [CVE-2026-53540](https://avd.aquasec.com/nvd/cve-2026-53540)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: python-multipart@0.0.5"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2024-47874",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2024-47874\nSeverity: HIGH\nFixed Version: 0.40.0\nLink: [CVE-2024-47874](https://avd.aquasec.com/nvd/cve-2024-47874)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-48818",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2026-48818\nSeverity: HIGH\nFixed Version: 1.1.0\nLink: [CVE-2026-48818](https://avd.aquasec.com/nvd/cve-2026-48818)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-54283",
+          "ruleIndex": 11,
+          "level": "error",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2026-54283\nSeverity: HIGH\nFixed Version: 1.3.1\nLink: [CVE-2026-54283](https://avd.aquasec.com/nvd/cve-2026-54283)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-29159",
+          "ruleIndex": 12,
+          "level": "warning",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2023-29159\nSeverity: MEDIUM\nFixed Version: 0.27.0\nLink: [CVE-2023-29159](https://avd.aquasec.com/nvd/cve-2023-29159)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-54121",
+          "ruleIndex": 13,
+          "level": "warning",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2025-54121\nSeverity: MEDIUM\nFixed Version: 0.47.2\nLink: [CVE-2025-54121](https://avd.aquasec.com/nvd/cve-2025-54121)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-48710",
+          "ruleIndex": 14,
+          "level": "warning",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2026-48710\nSeverity: MEDIUM\nFixed Version: 1.0.1\nLink: [CVE-2026-48710](https://avd.aquasec.com/nvd/cve-2026-48710)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-48817",
+          "ruleIndex": 15,
+          "level": "warning",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2026-48817\nSeverity: MEDIUM\nFixed Version: 1.1.0\nLink: [CVE-2026-48817](https://avd.aquasec.com/nvd/cve-2026-48817)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2026-54282",
+          "ruleIndex": 16,
+          "level": "note",
+          "message": {
+            "text": "Package: starlette\nInstalled Version: 0.25.0\nVulnerability CVE-2026-54282\nSeverity: LOW\nFixed Version: 1.3.0\nLink: [CVE-2026-54282](https://avd.aquasec.com/nvd/cve-2026-54282)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/requirements.txt: starlette@0.25.0"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2025-71176",
+          "ruleIndex": 17,
+          "level": "warning",
+          "message": {
+            "text": "Package: pytest\nInstalled Version: 8.4.1\nVulnerability CVE-2025-71176\nSeverity: MEDIUM\nFixed Version: 9.0.3\nLink: [CVE-2025-71176](https://avd.aquasec.com/nvd/cve-2025-71176)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "requirements.txt",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 3,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "requirements.txt: pytest@8.4.1"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "github-pat",
+          "ruleIndex": 18,
+          "level": "error",
+          "message": {
+            "text": "Artifact: lab5-canary/config/github.py\nType: \nSecret GitHub Personal Access Token\nSeverity: CRITICAL\nMatch: GITHUB_TOKEN = \"****************************************\""
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/config/github.py",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 3,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/config/github.py"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "private-key",
+          "ruleIndex": 19,
+          "level": "error",
+          "message": {
+            "text": "Artifact: lab5-canary/config/signing_key.py\nType: \nSecret Asymmetric Private Key\nSeverity: HIGH\nMatch: ****************************************************************"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lab5-canary/config/signing_key.py",
+                  "uriBaseId": "ROOTPATH"
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 1
+                }
+              },
+              "message": {
+                "text": "lab5-canary/config/signing_key.py"
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "originalUriBaseIds": {
+        "ROOTPATH": {
+          "uri": "file:///src/"
+        }
+      }
+    }
+  ]
+}

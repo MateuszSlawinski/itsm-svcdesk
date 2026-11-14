@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 import pytest
 
 from slaclock import (
-    MAX_DAYS,
     add_business_minutes,
     business_minutes_between,
     escalation_tier,
@@ -102,8 +101,11 @@ def test_add_business_minutes_handles_opening_closing_and_weekends():
 def test_add_business_minutes_rejects_negative_and_excessive_span():
     with pytest.raises(ValueError):
         add_business_minutes(datetime(2026, 3, 2, 9), -1)
+    start = datetime(2026, 1, 5, 8)
+    max_span_due = datetime(2027, 1, 6, 16)
+    assert add_business_minutes(start, 263 * 8 * 60) == max_span_due
     with pytest.raises(ValueError):
-        add_business_minutes(datetime(2026, 1, 5, 8), (MAX_DAYS + 1) * 8 * 60)
+        add_business_minutes(start, 263 * 8 * 60 + 1)
 
 
 def test_business_minutes_between_uses_half_open_business_windows():
@@ -119,8 +121,18 @@ def test_business_minutes_between_rejects_reverse_and_excessive_span():
     start = datetime(2026, 3, 2, 9)
     with pytest.raises(ValueError):
         business_minutes_between(start, start - timedelta(minutes=1))
+    boundary_start = datetime(2026, 1, 5, 8)
+    boundary_end = datetime(2027, 1, 6, 16)
+    assert business_minutes_between(boundary_start, boundary_end) == 263 * 8 * 60
     with pytest.raises(ValueError):
-        business_minutes_between(start, start + timedelta(days=MAX_DAYS + 1))
+        business_minutes_between(start, start + timedelta(days=367))
+
+
+def test_datetime_seconds_and_microseconds_are_ignored():
+    monday = datetime(2026, 3, 2, 9)
+    precise = monday.replace(minute=17, second=45, microsecond=123456)
+    assert add_business_minutes(precise, 1) == monday.replace(minute=18)
+    assert business_minutes_between(precise, precise + timedelta(minutes=1)) == 1
 
 
 def test_business_time_operations_are_inverse_at_clock_boundaries():
