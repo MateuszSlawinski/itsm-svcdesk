@@ -1,0 +1,75 @@
+{
+  "set": "lab5-canary",
+  "defects": [
+    {
+      "id": "A01",
+      "file": "lab5-canary/app/agent_accounts.py",
+      "class": "weak-crypto",
+      "cwe": "CWE-916",
+      "start_line": 7,
+      "end_line": 7
+    },
+    {
+      "id": "A03",
+      "file": "lab5-canary/app/attachment_read.py",
+      "class": "path-traversal",
+      "cwe": "CWE-22",
+      "start_line": 9,
+      "end_line": 10
+    },
+    {
+      "id": "A04",
+      "file": "lab5-canary/app/avatar_fetch.py",
+      "class": "insecure-transport",
+      "cwe": "CWE-295",
+      "start_line": 7,
+      "end_line": 7
+    },
+    {
+      "id": "A16",
+      "file": "lab5-canary/app/webhook_relay.py",
+      "class": "ssrf",
+      "cwe": "CWE-918",
+      "start_line": 7,
+      "end_line": 7
+    },
+    {
+      "id": "C03",
+      "file": "lab5-canary/config/github.py",
+      "class": "secret",
+      "cwe": "CWE-798",
+      "start_line": 3,
+      "end_line": 3
+    },
+    {
+      "id": "C06",
+      "file": "lab5-canary/config/search.py",
+      "class": "secret",
+      "cwe": "CWE-798",
+      "start_line": 3,
+      "end_line": 3
+    },
+    {
+      "id": "C07",
+      "file": "lab5-canary/config/signing_key.py",
+      "class": "secret",
+      "cwe": "CWE-321",
+      "start_line": 2,
+      "end_line": 11
+    },
+    {
+      "id": "D04",
+      "file": "lab5-canary/requirements.txt",
+      "class": "vulnerable-dependency",
+      "cwe": "CWE-1395",
+      "package": "python-multipart"
+    },
+    {
+      "id": "D07",
+      "file": "lab5-canary/requirements.txt",
+      "class": "vulnerable-dependency",
+      "cwe": "CWE-1395",
+      "package": "starlette"
+    }
+  ]
+}
