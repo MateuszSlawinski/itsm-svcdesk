@@ -1,0 +1,16 @@
+# ai-generated: 100% - added two service-specific Semgrep checks and paired test cases for Lab 5 P-31
+rules:
+  - id: svcdesk.generic-exception-catch
+    languages: [python]
+    severity: WARNING
+    message: "Catch expected request errors explicitly so unexpected failures are not hidden."
+    pattern: |
+      try:
+        ...
+      except Exception:
+        ...
+  - id: svcdesk.sql-query-concatenation
+    languages: [python]
+    severity: WARNING
+    message: "SQL text is concatenated before execution; keep values parameterized and SQL structure trusted."
+    pattern: $CURSOR.execute($QUERY + $DYNAMIC, ...)
