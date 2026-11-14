@@ -1,0 +1,79 @@
+# ai-generated: 100% - temporary GitHub-hosted helper for the approved Lab 5 package and canary operations
+name: lab5-operations
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: One-time Lab 5 operation
+        required: true
+        type: choice
+        options:
+          - publish-image
+          - create-canary
+
+permissions:
+  contents: read
+
+jobs:
+  publish-image:
+    if: inputs.task == 'publish-image' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Make the approved GHCR package public
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method PATCH /user/packages/container/itsm-svcdesk/visibility --field visibility=public
+          status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+            --header 'Accept: application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json' \
+            'https://ghcr.io/v2/mateuszslawinski/itsm-svcdesk/manifests/sha256:1ca37d5d53a998c10fc7bc09e3c638ad4aecd10bf9685435badbf7dfce44bfd6')"
+          if [ "$status" != "200" ]; then
+            echo "::error title=Package visibility check failed::anonymous GHCR returned HTTP $status"
+            exit 1
+          fi
+
+  create-canary:
+    if: inputs.task == 'create-canary' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out main with full history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Create the exact course canary and push its branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" -w "$GITHUB_WORKSPACE" \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -e GH_TOKEN -e GITHUB_TOKEN \
+            ghcr.io/swasik/itsmlab:2026 canary 5
+
+          if [ "$(git rev-parse lab5/canary^)" != "$(git rev-parse HEAD)" ]; then
+            echo "::error title=Canary parent mismatch::the canary must have exactly the current main commit as its parent"
+            exit 1
+          fi
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error title=Unexpected worktree changes::the canary command must not modify the main worktree"
+            exit 1
+          fi
+          if [ "$(git rev-list --count HEAD..lab5/canary)" != "1" ]; then
+            echo "::error title=Canary history mismatch::the canary must be one commit on top of main"
+            exit 1
+          fi
+          if ! git diff-tree --no-commit-id --name-status -r lab5/canary \
+            | awk '$1 != "A" || $2 !~ /^lab5-canary\// { bad = 1 } END { exit bad }'; then
+            echo "::error title=Unexpected canary files::the canary may add only lab5-canary/ files"
+            exit 1
+          fi
+          git push origin lab5/canary
