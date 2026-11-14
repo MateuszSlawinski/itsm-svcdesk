@@ -61,7 +61,15 @@ jobs:
                 exit 2
               fi
               mkdir -p bakeoff
-              run_checker labels 5 --issue "$ISSUE" > bakeoff/labels.json
+              set +e
+              run_checker labels 5 --issue "$ISSUE" > bakeoff/labels.json 2> bakeoff/labels.stderr
+              command_status=$?
+              set -e
+              if [ -s bakeoff/labels.stderr ]; then cat bakeoff/labels.stderr; fi
+              if [ "$command_status" -ne 0 ]; then
+                echo "itsmlab labels exited with status $command_status"
+                exit "$command_status"
+              fi
               python -m json.tool bakeoff/labels.json > /dev/null
               ;;
             submit-final)
